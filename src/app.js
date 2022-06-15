@@ -90,6 +90,7 @@ function currentWeather(response) {
   let windNow = document.querySelector("#wind-now");
   let currentCondition = response.data.weather[0].main;
   let conditionNow = document.querySelector("#condition-now");
+  let iconElement = document.querySelector("#icon-main");
   console.log(currentTemp);
   console.log(response.data.name);
   cityName.innerHTML = response.data.name;
@@ -97,6 +98,11 @@ function currentWeather(response) {
   humidityNow.innerHTML = `${currentHumidity}`;
   windNow.innerHTML = `${currentWind}`;
   conditionNow.innerHTML = `${currentCondition}`;
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
   return currentTemp;
 }
 function curPosition(position) {
