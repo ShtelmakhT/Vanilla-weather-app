@@ -75,6 +75,34 @@ function searchCity(event) {
     alert("Please type a city");
   }
 }
+
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+              <div class="col-2">
+                <div class="weather-forecast-date">${day}</div>
+                <img
+                  src="http://openweathermap.org/img/wn/50d@2x.png"
+                  alt=""
+                  width="42"
+                />
+                <div class="weather-forecast-temperatures">
+                  <span class="weather-forecast-temperature-max"> 18° </span>
+                  <span class="weather-forecast-temperature-min"> 12° </span>
+                </div>
+              </div>
+           `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 function currentTemp(response) {
   let temperCurrent = document.querySelector("#temper-now");
   let currentTemp = Math.round(response.data.main.temp);
@@ -93,6 +121,7 @@ function currentWeather(response) {
   let iconElement = document.querySelector("#icon-main");
   console.log(currentTemp);
   console.log(response.data.name);
+
   cityName.innerHTML = response.data.name;
   tempNow.innerHTML = `${currentTemp}`;
   humidityNow.innerHTML = `${currentHumidity}`;
@@ -105,6 +134,7 @@ function currentWeather(response) {
   iconElement.setAttribute("alt", response.data.weather[0].description);
   return currentTemp;
 }
+
 function curPosition(position) {
   let inputCityName = document.querySelector("#input-city");
   let latitude = position.coords.latitude;
@@ -138,3 +168,5 @@ unitCel.addEventListener("click", changeUnitsFtoC);
 let apiKey = "8433bdf9dde0191b5fd72b3b69889784";
 let buttonCurrent = document.querySelector("#but-current");
 buttonCurrent.addEventListener("click", naviCurrent);
+
+displayForecast();
